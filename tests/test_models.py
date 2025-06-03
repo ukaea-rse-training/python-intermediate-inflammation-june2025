@@ -30,6 +30,18 @@ def test_daily_mean_integers():
 @pytest.mark.parametrize(
     ("test", "expected"),
     [
+        [np.array([[1, 2], [3, 4], [5, 6]]), np.array([3, 4])],
+        [np.array([[0, 0], [0, 0], [0, 0]]), np.array([0, 0])],
+    ],
+    ids=["positive integers", "zeros"],
+)
+def test_daily_mean(test, expected):
+    npt.assert_array_equal(daily_mean(test), expected)
+
+
+@pytest.mark.parametrize(
+    ("test", "expected"),
+    [
         [np.array([[1, 2], [3, 4], [5, 6]]), np.array([5, 6])],
         [np.array([[0, 0], [0, 0], [0, 0]]), np.array([0, 0])],
     ],
