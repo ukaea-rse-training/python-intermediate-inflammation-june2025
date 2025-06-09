@@ -7,8 +7,6 @@ inflammation data for a single patient taken over a number of days
 and each column represents a single day across all patients.
 """
 
-from tkinter import W
-
 import numpy as np
 
 
@@ -40,6 +38,7 @@ def patient_normalise(data):
     data = np.asarray(data)
     is_zero: np.ndarray = data < 0
     if is_zero.any():
-        raise ValueError(f"You have negative values in input at these indices:\n{is_zero.nonzero()}")
-    max = np.max(data, axis=1)
-    return data / max[:, np.newaxis]
+        raise ValueError("You have negative values in input at these indices:"
+                         f"\n{is_zero.nonzero()}")
+    max_data = np.max(data, axis=1)
+    return data / max_data[:, np.newaxis]
