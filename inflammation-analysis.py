@@ -5,7 +5,7 @@ import argparse
 import os
 
 from inflammation import models, views
-from inflammation.compute_data import analyse_data
+from inflammation.compute_data import CSVDataSource, analyse_data
 
 
 def main(args):
@@ -19,9 +19,9 @@ def main(args):
     if not isinstance(infiles, list):
         infiles = [args.infiles]
 
-
     if args.full_data_analysis:
-        analyse_data(os.path.dirname(infiles[0]))
+        data_source = CSVDataSource(data_dir=os.path.dirname(infiles[0]))
+        analyse_data(data_source=data_source)
         return
 
     for filename in infiles:
