@@ -28,6 +28,29 @@ def analyse_data(data_source):
     views.visualize(graph_data)
 
 
+class JSONDataSource:
+    def __init__(self, data_dir: str):
+        self._data_dir = data_dir
+
+    def load_inflammation_data(self):
+        """Load the inflammation data from JSON files in the specified directory
+
+        Parameters
+        ----------
+        data_dir : str
+            The path to the directory with the JSON files
+
+        Returns
+        -------
+        list[np.ndarray]:
+            A list of the 2D inflammation data in each file read.
+        """
+        data_file_paths = glob.glob(os.path.join(self._data_dir, 'inflammation*.json'))
+        if len(data_file_paths) == 0:
+            raise ValueError(f"No inflammation data JSON files found in path {self._data_dir}")
+        return list(map(models.load_json, data_file_paths))
+
+
 class CSVDataSource:
     def __init__(self, data_dir: str):
         self._data_dir = data_dir

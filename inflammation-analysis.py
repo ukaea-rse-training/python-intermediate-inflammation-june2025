@@ -5,7 +5,7 @@ import argparse
 import os
 
 from inflammation import models, views
-from inflammation.compute_data import CSVDataSource, analyse_data
+from inflammation.compute_data import CSVDataSource, JSONDataSource, analyse_data
 
 
 def main(args):
@@ -20,8 +20,14 @@ def main(args):
         infiles = [args.infiles]
 
     if args.full_data_analysis:
-        data_source = CSVDataSource(data_dir=os.path.dirname(infiles[0]))
-        analyse_data(data_source=data_source)
+        file_type = args.full_data_analysis[0].lower()
+        if file_type == 'json':
+            data_source = JSONDataSource(os.path.dirname(infiles[0]))
+        elif file_type == 'csv':
+            data_source = CSVDataSource(os.path.dirname(infiles[0]))
+        else:
+            raise ValueError(f'Unsupported data file format: {file_type}')
+        analyse_data(data_source)
         return
 
     for filename in infiles:
@@ -47,7 +53,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         '--full-data-analysis',
-        action='store_true',
+        nargs=1,
         dest='full_data_analysis')
 
     args = parser.parse_args()
