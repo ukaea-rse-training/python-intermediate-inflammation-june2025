@@ -29,16 +29,18 @@ def analyse_data(data_source):
 
 
 class JSONDataSource:
+    """JSON inflammation data file loader
+
+    Parameters
+    ----------
+    data_dir : str
+        The path to the directory with the JSON files
+    """
     def __init__(self, data_dir: str):
         self._data_dir = data_dir
 
     def load_inflammation_data(self):
         """Load the inflammation data from JSON files in the specified directory
-
-        Parameters
-        ----------
-        data_dir : str
-            The path to the directory with the JSON files
 
         Returns
         -------
