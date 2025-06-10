@@ -6,7 +6,7 @@ import os
 
 import numpy as np
 
-from inflammation import models, views
+from inflammation import models
 
 
 def analyse_data(data_source):
@@ -22,10 +22,9 @@ def analyse_data(data_source):
 
     daily_standard_deviation = np.std(means_by_day_matrix, axis=0)
 
-    graph_data = {
+    return {
         'standard deviation by day': daily_standard_deviation,
     }
-    views.visualize(graph_data)
 
 
 class JSONDataSource:

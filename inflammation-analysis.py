@@ -27,7 +27,8 @@ def main(args):
             data_source = CSVDataSource(os.path.dirname(infiles[0]))
         else:
             raise ValueError(f'Unsupported data file format: {file_type}')
-        analyse_data(data_source)
+        graph_data = analyse_data(data_source)
+        views.visualize(graph_data)
         return
 
     for filename in infiles:
